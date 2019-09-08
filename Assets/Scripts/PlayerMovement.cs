@@ -1,22 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
 
     private Rigidbody2D rb2d;
+    private Animator anim;
+    PlayerControls controls;
 
     public float speed;
 
     private Vector3 change;
 
-	private Animator anim;
+	
 
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
+
+        controls = new PlayerControls();
+
+        controls.Gameplay.Move.performed += ctx => change = ctx.ReadValue<Vector2>();
     }
 
     private void Update()
